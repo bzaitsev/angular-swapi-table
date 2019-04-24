@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "serve-dev": "ng serve --source-map=false --proxy-config proxy.config.json"
+    "serve-dev": "ng serve --proxy-config proxy.config.json"
   },
   "private": true,
   "dependencies": {

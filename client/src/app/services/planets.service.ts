@@ -10,7 +10,6 @@ export default class PlanetService {
   constructor(
     private http: HttpClient
   ) {
-    // this.apiUrl = 'https://swapi.co/api/planets/';
     this.apiUrl = '/api/planets/';
   }
 

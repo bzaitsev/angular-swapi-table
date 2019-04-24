@@ -1,7 +1,6 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Component, OnInit, ViewChild, EventEmitter, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort} from '@angular/material';
-import {merge, Observable, of as observableOf} from 'rxjs';
+import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -32,35 +31,40 @@ export interface PlanetRecord {
   ]
 })
 export class AppComponent implements OnInit {
-  displayedColumns: string[] = [
-    'name',
-    'terrain',
-    'population',
-    'residents_amount',
-    'films_amount'
-  ];
+  displayedColumns: string[];
   database: any | null;
   expandedElement: any;
-  data: PlanetRecord[] = [];
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
-  searchValue = null;
-  searchRequest = new EventEmitter();
+  data: PlanetRecord[];
+  resultsLength: number;
+  isLoadingResults: boolean;
+  isRateLimitReached: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  isExpansionDetailRow = (i: number, row: object) => row.hasOwnProperty('detailRow');
+  isExpansionDetailRow: any;
 
   constructor(
-    private http: HttpClient,
     private PlanetService: PlanetService
-  ) {}
+  ) {
+    this.displayedColumns = [
+      'name',
+      'terrain',
+      'population',
+      'residents_amount',
+      'films_amount'
+    ];
+
+    this.isLoadingResults = true;
+    this.isRateLimitReached = false;
+    this.data = [];
+    this.resultsLength = 0;
+    this.isExpansionDetailRow = (i: number, row: object) => row.hasOwnProperty('detailRow');
+  }
 
   ngOnInit() {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
-    merge(this.sort.sortChange, this.paginator.page, this.searchRequest)
+    merge(this.sort.sortChange, this.paginator.page)
     .pipe(
       startWith({}),
       switchMap(() => {

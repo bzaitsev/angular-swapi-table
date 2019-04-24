@@ -3,54 +3,55 @@ const https = require('https'),
 
 const config = require('./config');
 
-module.exports = {
-  'test-page': {
-    path: '/',
-    action: (request, response, next) => {
-      response.send('Test 1');
-    } 
-  },
-  'get-planets': {
-    path: '/api/planets/',
-    action: async (request, response, next) => {
-      if (!global.planets.length) {
-        let next = null;
-      
-        do {
-          let data = await getPlanets(next);
-          next = data.next;
-          global.planets = global.planets.concat(data.results);
-        } while (next);
-      }
+const routes = {};
+
+routes['test-page'] = {
+  path: '/',
+  action: (request, response) => {
+    response.send('Test 1');
+  } 
+};
+
+routes['get-planets'] = {
+  path: '/api/planets/',
+  action: async (request, response) => {
+    if (!global.planets.length) {
+      let next = null;
     
-      let query = url.parse(request.url, true).query,
-          results = global.planets;
-
-      if (query.limit && query.page) {
-        results = results.slice(
-          (query.page - 1) * query.limit, 
-          query.page * query.limit
-        );
-      }
-
-      response.send({
-        count: global.planets.length,
-        results
-      });          
+      do {
+        let data = await getPlanets(next);
+        next = data.next;
+        global.planets = global.planets.concat(data.results);
+      } while (next);
     }
+  
+    let query = url.parse(request.url, true).query,
+        results = global.planets;
+
+    if (query.limit && query.page) {
+      results = results.slice(
+        (query.page - 1) * query.limit, 
+        query.page * query.limit
+      );
+    }
+
+    response.send({
+      count: global.planets.length,
+      results
+    });          
   }
 };
 
 function getPlanets(next) {
   const promise = new Promise((resolve, reject) => {
-    https.get(next || 'https://swapi.co/api/planets/', swapiResponse => {
+    https.get(next || config.swapi.planets, response => {
       let data = '';
   
-      swapiResponse.on('data', chunk => {
+      response.on('data', chunk => {
         data += chunk;
       });
   
-      swapiResponse.on('end', () => {
+      response.on('end', () => {
         if (!data) {
           return reject();
         }
@@ -66,3 +67,5 @@ function getPlanets(next) {
 
   return promise;
 }
+
+module.exports = routes;
