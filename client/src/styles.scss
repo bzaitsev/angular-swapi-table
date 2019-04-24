@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~normalize.css/normalize.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Helvetica', sans-serif;
+  color: #404040;
+}
+html,
+body,
+app-root {
+  min-height: 100vh;
+}
+p {
+  margin: 0;
+}

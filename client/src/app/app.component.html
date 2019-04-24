@@ -1,0 +1,72 @@
+<div class="root-container">
+  <div class="app-container mat-elevation-z8">
+    <div class="app-loading-shade"
+        *ngIf="isLoadingResults || isRateLimitReached">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      <div class="app-rate-limit-reached" *ngIf="isRateLimitReached">
+        No data.
+      </div>
+    </div>
+
+    <div class="app-table-container">
+      <mat-table
+        [dataSource]="data"
+        class="app-table"
+        matSort
+        matSortActive="created"
+        matSortDisableClear
+        matSortDirection="asc">
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+          <mat-cell  *matCellDef="let row">{{row.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="terrain">
+          <mat-header-cell  *matHeaderCellDef>Terrain</mat-header-cell>
+          <mat-cell  *matCellDef="let row">{{row.terrain}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="population">
+          <mat-header-cell  *matHeaderCellDef>Population</mat-header-cell>
+          <mat-cell  *matCellDef="let row">{{row.population | population}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="residents_amount">
+          <mat-header-cell  *matHeaderCellDef>Residents amount</mat-header-cell>
+          <mat-cell  *matCellDef="let row">{{row.residents.length}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="films_amount">
+          <mat-header-cell  *matHeaderCellDef>Films amount</mat-header-cell>
+          <mat-cell  *matCellDef="let row">{{row.films.length}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
+            <p *ngIf="row.item.films && row.item.films.length"><b>Films:</b> {{ row.item.films.join(', ') }}</p>
+            <p *ngIf="row.item.residents && row.item.residents.length"><b>Residents:</b> {{ row.item.residents.join(', ') }}</p>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row  *matHeaderRowDef="displayedColumns; sticky: true;"></mat-header-row>
+
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns;"
+          matRipple
+          class="element-row"
+          [class.no-details]="row.noDetails"
+          [class.expanded]="expandedElement == row"
+          (click)="onRowClick($event, row)"></mat-row>
+
+        <mat-row
+          *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+          class="element-detail-row"
+          [@detailExpand]="row.item == expandedElement ? 'expanded' : 'collapsed'"
+          style="overflow: hidden"></mat-row>
+      </mat-table>
+    </div>
+
+    <mat-paginator class="mat-paginator" [length]="resultsLength" [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+  </div>
+</div>
