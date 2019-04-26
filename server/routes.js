@@ -19,7 +19,15 @@ routes['get-planets'] = {
       let next = null;
     
       do {
-        let data = await getPlanets(next);
+        let data;
+
+        try {
+          data = await getPlanets(next);
+        } catch (err) {
+          console.error('Error in getPlanets: ', err);
+          break;
+        }
+        
         next = data.next;
         global.planets = global.planets.concat(data.results);
       } while (next);
