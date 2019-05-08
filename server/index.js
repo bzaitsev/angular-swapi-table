@@ -1,22 +1,18 @@
-const http = require('http'),
-      express = require('express'), 
-      app = express();
+const http = require('http');
+const express = require('express'); 
+const app = express();
 
-const config = require('./config'),
-      routes = require('./routes');
+const config = require('./config');
+const routes = require('./routes');
 
-global.planets = [];
-
-app
-  .use(express.static(config.staticPath))
-  .get(routes['test-page']['path'], routes['test-page']['action'])
-  .get(routes['get-planets']['path'], routes['get-planets']['action']);
+app.get('/', routes.root);
+app.get('/api/planets/', routes.planets);
 
 http
   .createServer(app)
   .listen(config.port, error => { 
     if (error) {
-      return console.error('Server start error: ', error);   
+      return console.error('Error: ', error);   
     }
     console.log(`Server is listening on port ${config.port}`); 
   });

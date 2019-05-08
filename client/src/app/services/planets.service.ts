@@ -19,7 +19,7 @@ export default class PlanetService {
     const sortActive = sort.active;
     const order = sort.direction;
     const page = paginator.pageIndex;
-    const pageSize = paginator.pageSize ? paginator.pageSize : 10;
+    const pageSize = paginator.pageSize || 10;
 
     params = params.append('page', `${page + 1}`);
     params = params.append('limit', `${pageSize}`);
@@ -27,6 +27,7 @@ export default class PlanetService {
     if (sortActive) {
       params = params.append('sort', sortActive);
     }
+
     if (order) {
       params = params.append('order', order);
     }

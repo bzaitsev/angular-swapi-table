@@ -1,53 +1,48 @@
-const https = require('https'),
-      url = require('url');
+const https = require('https');
+const url = require('url');
 
 const config = require('./config');
+const store = require('./store');
 
 const routes = {};
 
-routes['test-page'] = {
-  path: '/',
-  action: (request, response) => {
-    response.send('Test 1');
-  } 
+routes.root = (request, response) => {
+  response.send('Test 1');
 };
 
-routes['get-planets'] = {
-  path: '/api/planets/',
-  action: async (request, response) => {
-    if (!global.planets.length) {
-      let next = null;
-    
-      do {
-        let data;
-
-        try {
-          data = await getPlanets(next);
-        } catch (err) {
-          console.error('Error in getPlanets: ', err);
-          break;
-        }
-        
-        next = data.next;
-        global.planets = global.planets.concat(data.results);
-      } while (next);
-    }
+routes.planets = async (request, response) => {
+  if (!store.planets.length) {
+    let next = null;
   
-    let query = url.parse(request.url, true).query,
-        results = global.planets;
+    do {
+      let data;
 
-    if (query.limit && query.page) {
-      results = results.slice(
-        (query.page - 1) * query.limit, 
-        query.page * query.limit
-      );
-    }
-
-    response.send({
-      count: global.planets.length,
-      results
-    });          
+      try {
+        data = await getPlanets(next);
+      } catch (err) {
+        console.error('Error in getPlanets: ', err);
+        break;
+      }
+      
+      next = data.next;
+      store.planets = store.planets.concat(data.results);
+    } while (next);
   }
+
+  let query = url.parse(request.url, true).query;
+  let results = store.planets;
+
+  if (query.limit && query.page) {
+    results = results.slice(
+      (query.page - 1) * query.limit, 
+      query.page * query.limit
+    );
+  }
+
+  response.send({
+    count: store.planets.length,
+    results
+  });          
 };
 
 function getPlanets(next) {
