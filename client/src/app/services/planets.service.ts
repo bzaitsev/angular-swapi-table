@@ -16,20 +16,17 @@ export default class PlanetService {
   getData(sort: any, paginator: any) {
     let params = new HttpParams();
 
-    const sortActive = sort.active;
-    const order = sort.direction;
-    const page = paginator.pageIndex;
     const pageSize = paginator.pageSize || 10;
 
-    params = params.append('page', `${page + 1}`);
+    params = params.append('page', `${paginator.pageIndex + 1}`);
     params = params.append('limit', `${pageSize}`);
 
-    if (sortActive) {
-      params = params.append('sort', sortActive);
+    if (sort.active) {
+      params = params.append('sort', sort.active);
     }
 
-    if (order) {
-      params = params.append('order', order);
+    if (sort.direction) {
+      params = params.append('order', sort.direction);
     }
 
     return this.http.get(this.apiUrl, {params});
