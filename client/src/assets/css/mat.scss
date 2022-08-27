@@ -1,0 +1,38 @@
+// Global material overrides
+@mixin cell-gap {
+  content: '';
+  display: inline-block;
+  width: 5px;
+}
+
+.mat-select-arrow,
+.mat-select-value {
+  color: var(--text-color);
+}
+.mat-elevation-z8 {
+  box-shadow: var(--mat-box-shadow);
+}
+.mat-cell {
+  &::after {
+    @include cell-gap;
+  }
+}
+.mat-header-cell {
+  font-size: 13px;
+  &::after {
+    @include cell-gap;
+  }
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: var(--mat-select-underline-color);
+}
+.mat-button.mat-accent[disabled], .mat-button.mat-primary[disabled], .mat-button.mat-warn[disabled], .mat-button[disabled][disabled], .mat-icon-button.mat-accent[disabled], .mat-icon-button.mat-primary[disabled], .mat-icon-button.mat-warn[disabled], .mat-icon-button[disabled][disabled], .mat-stroked-button.mat-accent[disabled], .mat-stroked-button.mat-primary[disabled], .mat-stroked-button.mat-warn[disabled], .mat-stroked-button[disabled][disabled] {
+  color: var(--mat-color-disabled);
+}
+
+@media (max-width: 430px) {
+  .mat-header-cell {
+    font-size: 12px;
+  }
+}

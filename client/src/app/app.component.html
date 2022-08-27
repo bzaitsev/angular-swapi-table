@@ -1,4 +1,6 @@
 <div class="root-container">
+  <h1 class="h1">Star Wars planets</h1>
+
   <div class="app-container mat-elevation-z8">
     <div class="app-loading-shade"
         *ngIf="isLoadingResults || isRateLimitReached">
@@ -44,12 +46,26 @@
 
         <ng-container matColumnDef="expandedDetail">
           <mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
-            <p *ngIf="row.item.films && row.item.films.length"><b>Films:</b> {{ row.item.films.join(', ') }}</p>
-            <p *ngIf="row.item.residents && row.item.residents.length"><b>Residents:</b> {{ row.item.residents.join(', ') }}</p>
+            <p *ngIf="row.item.films && row.item.films.length">
+              <b>Films: </b> 
+              <ng-container *ngFor="let film of row.item.films; last as isLast; index as i">
+                <a [href]="film" class="link" target="_blank">Film {{i+1}}</a>
+                <ng-container *ngIf="!isLast">, </ng-container>
+              </ng-container>
+            </p>
+            <p *ngIf="row.item.residents && row.item.residents.length">
+              <b>Residents: </b>
+              <ng-container *ngFor="let resident of row.item.residents; last as isLast; index as i">
+                <a [href]="resident" class="link" target="_blank">Resident {{i+1}}</a>
+                <ng-container *ngIf="!isLast">, </ng-container>
+              </ng-container>
+            </p>
           </mat-cell>
         </ng-container>
 
-        <mat-header-row  *matHeaderRowDef="displayedColumns; sticky: true;"></mat-header-row>
+        <mat-header-row  
+          *matHeaderRowDef="displayedColumns; sticky: true;"
+          class="header-row"></mat-header-row>
 
         <mat-row
           *matRowDef="let row; columns: displayedColumns;"
