@@ -5,6 +5,7 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import PlanetService from './services/planets.service';
+import mockPlanets from './services/mock.planets';
 
 export interface PlanetApi {
   results: PlanetRecord[];
@@ -71,30 +72,12 @@ export class AppComponent implements OnInit {
         this.isLoadingResults = true;
         return this.PlanetService.getData(this.sort, this.paginator);
       }),
-      map((data: PlanetApi) => {
-        this.isLoadingResults = false;
-        this.isRateLimitReached = false;
-        this.resultsLength = data.count;
-
-        const result = [];
-
-        if (data.results) {
-          data.results.forEach(item => {
-            if (!item.films.length && !item.residents.length) {
-              item.noDetails = true;
-            }
-
-            result.push(item, {
-              detailRow: true,
-              loaded: false,
-              item
-            });
-          });
+      map(this.onPlanetsSuccess.bind(this)),
+      catchError(() => {
+        if (mockPlanets) {
+          return observableOf(this.onPlanetsSuccess(mockPlanets));
         }
 
-        return result;
-      }),
-      catchError(() => {
         this.isLoadingResults = false;
         this.isRateLimitReached = true;
         return observableOf([]);
@@ -112,5 +95,29 @@ export class AppComponent implements OnInit {
     } else {
       this.expandedElement = row;
     }
+  }
+
+  onPlanetsSuccess(data: PlanetApi) {
+    this.isLoadingResults = false;
+    this.isRateLimitReached = false;
+    this.resultsLength = data.count;
+
+    const result: PlanetRecord|any = [];
+
+    if (data.results) {
+      data.results.forEach(item => {
+        if (!item.films.length && !item.residents.length) {
+          item.noDetails = true;
+        }
+
+        result.push(item, {
+          detailRow: true,
+          loaded: false,
+          item
+        });
+      });
+    }
+
+    return result;
   }
 }
