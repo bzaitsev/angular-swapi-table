@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import config from './../config';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export default class PlanetService {
   constructor(
     private http: HttpClient
   ) {
-    this.apiUrl = '/api/planets/';
+    this.apiUrl = config.api.planets;
   }
 
   getData(sort: any, paginator: any) {
