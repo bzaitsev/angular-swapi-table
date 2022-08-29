@@ -6,6 +6,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 import PlanetService from './services/planets.service';
 import mockPlanets from './services/mock.planets';
+import config from './config';
 
 export interface PlanetApi {
   results: PlanetRecord[];
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
   expandedElement: any;
   data: PlanetRecord[];
   resultsLength: number;
+  pageSizeOptions: any;
   isLoadingResults: boolean;
   isRateLimitReached: boolean;
 
@@ -59,6 +61,7 @@ export class AppComponent implements OnInit {
     this.isRateLimitReached = false;
     this.data = [];
     this.resultsLength = 0;
+    this.pageSizeOptions = config.api.planets.includes('https:') ? [10]: [10, 20, 50];
     this.isExpansionDetailRow = (i: number, row: object) => row.hasOwnProperty('detailRow');
   }
 
