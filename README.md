@@ -1,7 +1,7 @@
 # Star Wars planets <img src="https://bzaitsev.github.io/angular-swapi-table/favicon.ico" height="24">
 [Demo](https://bzaitsev.github.io/angular-swapi-table/)
 
-**Tech stack:** Angular, Node.js, [The Star Wars API](https://swapi.dev)
+**Tech stack**: Angular, Node.js, [The Star Wars API](https://swapi.dev)
 
 ## Task description
 Create application that shows Star Wars planets data using https://swapi.dev
