@@ -61,15 +61,21 @@ export default {
     "name": "Biggs Darklighter",
     link: 'https://www.starwars.com/databank/biggs-darklighter'
   },
+  'https://swapi.dev/api/people/10/': {
+    "name": "Obi-Wan Kenobi",
+    link: 'https://www.starwars.com/databank/obi-wan-kenobi'
+  },
   'https://swapi.dev/api/people/11/': {
     "name": "Anakin Skywalker",
     link: 'https://www.starwars.com/databank/anakin-skywalker'
   },
   'https://swapi.dev/api/people/21/': {
-    "name": "Palpatine"
+    "name": "Palpatine",
+    link: 'https://www.starwars.com/databank/emperor-palpatine-darth-sidious'
   },
   'https://swapi.dev/api/people/22/': {
-    "name": "Boba Fett"
+    "name": "Boba Fett",
+    link: 'https://www.starwars.com/databank/boba-fett'
   },
   'https://swapi.dev/api/people/26/': {
     "name": "Lobot",
@@ -80,7 +86,8 @@ export default {
     link: 'https://www.starwars.com/databank/wicket-w-warrick'
   },
   'https://swapi.dev/api/people/34/': {
-    "name": "Finis Valorum"
+    "name": "Finis Valorum",
+    link: 'https://www.starwars.com/databank/supreme-chancellor-valorum'
   },
   'https://swapi.dev/api/people/35/': {
     "name": "Padmé Amidala"
@@ -105,7 +112,8 @@ export default {
     link: 'https://www.starwars.com/databank/shmi-skywalker-lars'
   },
   'https://swapi.dev/api/people/55/': {
-    "name": "Adi Gallia"
+    "name": "Adi Gallia",
+    link: 'https://www.starwars.com/databank/adi-gallia'
   },
   'https://swapi.dev/api/people/60/': {
     "name": "Gregar Typho"
@@ -117,6 +125,10 @@ export default {
     "name": "Cliegg Lars",
     link: 'https://www.starwars.com/databank/cliegg-lars'
   },
+  'https://swapi.dev/api/people/63/': {
+    "name": "Poggle the Lesser",
+    link: 'https://www.starwars.com/databank/poggle-the-lesser'
+  },
   'https://swapi.dev/api/people/66/': {
     "name": "Dormé"
   },
@@ -125,16 +137,23 @@ export default {
     link: 'https://www.starwars.com/databank/bail-organa'
   },
   'https://swapi.dev/api/people/72/': {
-    "name": "Lama Su"
+    "name": "Lama Su",
+    link: 'https://www.starwars.com/databank/lama-su'
   },
   'https://swapi.dev/api/people/73/': {
-    "name": "Taun We"
+    "name": "Taun We",
+    link: 'https://www.starwars.com/databank/taun-we'
   },
   'https://swapi.dev/api/people/74/': {
-    "name": "Jocasta Nu"
+    "name": "Jocasta Nu",
+    link: 'https://www.starwars.com/databank/jocasta-nu'
   },
   'https://swapi.dev/api/people/81/': {
     "name": "Raymus Antilles",
     link: 'https://www.starwars.com/databank/captain-antilles'
+  },
+  'https://swapi.dev/api/people/83/': {
+    "name": "Tion Medon",
+    link: 'https://www.starwars.com/databank/tion-medon'
   }
 }
