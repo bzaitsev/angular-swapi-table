@@ -90,10 +90,13 @@ table {
   }
   &.expanded {
     border-bottom-color: transparent;
+    background-color: var(--hover-row-bg-color);
   }
 }
 .element-detail-row {
   background-color: var(--detail-bg-color);
+  border-bottom: 1px solid rgba(0,0,0,.12);
+  background-clip: padding-box;
 
   p:not(:first-child) {
     margin-top: 10px;
