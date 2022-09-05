@@ -19,7 +19,7 @@ Links:
 - Material table (there is example with expandable rows as well): https://material.angular.io/components/table/overview
 
 ## Run project locally
-To launch server, in root folder run:  
+To launch server, in root folder run (optional):  
 ```sh
 npm i  
 npm run start
