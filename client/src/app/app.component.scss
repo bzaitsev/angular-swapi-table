@@ -5,8 +5,9 @@
   flex-direction: column;
   background-image: var(--root-background-image);
   background-size: cover;
-  background-position: right;
+  background-position: 100% 0;
   color: var(--text-color);
+  animation: background-offset 10s ease-in-out infinite alternate;
 }
 .h1 {
   margin: 15px 0;
@@ -129,4 +130,11 @@ table {
 }
 mat-row {
   min-height: 30px;
+}
+
+
+@media (max-width: 500px) {
+  .h1 {
+    font-size: 32px;
+  }
 }

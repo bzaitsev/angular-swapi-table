@@ -36,3 +36,15 @@ p {
     0 var(--offset) var(--blur) yellow, 
     0 var(--neg-offset) var(--blur) yellow;
 }
+
+@keyframes background-offset {
+  0% {background-position: 100% 0;}
+  100% {background-position: 90% 10%;}
+}
+
+@media (max-width: 780px) {
+  @keyframes background-offset {
+    0% {background-position: 100% 0;}
+    100% {background-position: 95% 5%;}
+  }
+}
