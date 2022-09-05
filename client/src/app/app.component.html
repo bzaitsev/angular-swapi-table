@@ -49,15 +49,26 @@
             <p *ngIf="row.item.films && row.item.films.length">
               <b>Films: </b> 
               <ng-container *ngFor="let film of row.item.films; last as isLast; index as i">
-                <a [href]="film" class="link" target="_blank">Film {{i+1}}</a>
-                <ng-container *ngIf="!isLast">, </ng-container>
+                <ng-container *ngIf="mockDetails[film]; else defaultFilmName">
+                  <a [href]="mockDetails[film].link" class="link" target="_blank">{{mockDetails[film].title}}</a>
+                </ng-container>
+                <ng-template #defaultFilmName>
+                  <a [href]="film" class="link" target="_blank">Film {{i+1}}</a>
+                </ng-template>
+                <ng-container *ngIf="!isLast">,&nbsp; </ng-container>
               </ng-container>
             </p>
+
             <p *ngIf="row.item.residents && row.item.residents.length">
               <b>Residents: </b>
               <ng-container *ngFor="let resident of row.item.residents; last as isLast; index as i">
-                <a [href]="resident" class="link" target="_blank">Resident {{i+1}}</a>
-                <ng-container *ngIf="!isLast">, </ng-container>
+                <ng-container *ngIf="mockDetails[resident]; else defaultResidentName">
+                  <a [href]="mockDetails[resident].link || resident" class="link" target="_blank">{{mockDetails[resident].name}}</a>
+                </ng-container>
+                <ng-template #defaultResidentName>
+                  <a [href]="resident" class="link" target="_blank">Resident {{i+1}}</a>
+                </ng-template>
+                <ng-container *ngIf="!isLast">,&nbsp; </ng-container>
               </ng-container>
             </p>
           </mat-cell>

@@ -6,6 +6,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 import PlanetService from './services/planets.service';
 import mockPlanets from './services/mock.planets';
+import mockDetails from './services/mock.details';
 import config from './config';
 
 export interface PlanetApi {
@@ -41,6 +42,7 @@ export class AppComponent implements OnInit {
   pageSizeOptions: any;
   isLoadingResults: boolean;
   isRateLimitReached: boolean;
+  mockDetails: any = mockDetails;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
