@@ -23,6 +23,9 @@
     @include cell-gap;
   }
 }
+.mat-paginator-container[class] {
+  padding: 8px;
+}
 
 .mat-form-field-appearance-legacy .mat-form-field-underline {
   background-color: var(--mat-select-underline-color);
